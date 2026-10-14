@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Mechanic AI - مساعد تشخيص أعطال الدراجات النارية">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Mechanic AI v3 | مساعد الميكانيكي</title>
+<style>
+:root{--bg:#0b1220;--panel:#121c2e;--panel2:#1b2940;--text:#f3f6fb;--muted:#a9b6ca;--accent:#42d3a5;--line:#2a3a53;--warn:#ffc36b;--danger:#ff7c7c}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#0b1220,#111c30);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;min-height:100vh}
+.app{max-width:760px;margin:auto;padding:16px 14px 36px}.top{display:flex;align-items:center;gap:12px;padding:8px 0 18px}.logo{width:48px;height:48px;border-radius:15px;background:var(--accent);color:#08251d;display:grid;place-items:center;font-size:25px;font-weight:900}.brand{font-size:22px;font-weight:850}.sub{font-size:12px;color:var(--muted);margin-top:3px}.pill{margin-right:auto;border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--accent);font-size:11px;white-space:nowrap}
+.hero,.card{border:1px solid var(--line);border-radius:22px;background:linear-gradient(140deg,#18263b,#111a2b);padding:20px;box-shadow:0 10px 28px #0002}.card{margin-top:14px;background:var(--panel);box-shadow:none}.eyebrow{color:var(--accent);font-size:12px;font-weight:800}.hero h1{font-size:27px;line-height:1.3;margin:9px 0}.hero p,.muted{color:var(--muted);line-height:1.75}.actions{display:grid;gap:9px;margin-top:16px}.btn{border:0;border-radius:13px;padding:13px 15px;font:inherit;font-weight:750;cursor:pointer}.primary{background:var(--accent);color:#06271e}.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.danger{background:#492b30;color:#ffe1e1;border:1px solid #77424a}.section-title{font-size:17px;margin:22px 0 11px}.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tile{background:#111c2e;border:1px solid var(--line);border-radius:15px;padding:14px;min-height:106px;cursor:pointer}.tile:focus,.tile:hover{border-color:var(--accent)}.emoji{font-size:23px}.tile b{display:block;margin:7px 0 3px}.tile small{color:var(--muted);line-height:1.5}.hidden{display:none!important}.progress{height:6px;background:#25344a;border-radius:99px;overflow:hidden;margin:13px 0 19px}.progress span{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}.question{font-size:20px;line-height:1.5;margin:8px 0 16px}.choices{display:grid;gap:9px}.choice{width:100%;text-align:right;background:#18263b;border:1px solid #30415b;color:var(--text);border-radius:12px;padding:13px;font:inherit;cursor:pointer}.choice:focus,.choice:hover{border-color:var(--accent)}.result{border-right:4px solid var(--accent);padding:13px;background:#132b2a;border-radius:10px;line-height:1.85}.warning{border-right:4px solid var(--warn);padding:12px;background:#30271b;border-radius:10px;line-height:1.8;margin-top:11px}.critical{border-right-color:var(--danger);background:#351e25}.note{font-size:12px;color:var(--muted);line-height:1.8;margin-top:13px}.small{font-size:12px;color:var(--muted)}.history-item{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:9px;line-height:1.7}.field{width:100%;border:1px solid var(--line);background:#0d1728;color:var(--text);padding:12px;border-radius:11px;font:inherit;margin-top:6px}.footer{text-align:center;color:#7888a1;font-size:11px;margin-top:24px}.tag{display:inline-block;border:1px solid var(--line);padding:4px 8px;border-radius:99px;font-size:11px;color:var(--muted);margin:3px 3px 3px 0}
+@media(min-width:560px){.actions.two{grid-template-columns:1fr 1fr}.tiles{grid-template-columns:repeat(4,minmax(0,1fr))}.hero{padding:25px}}
+</style>
+</head>
+<body><main class="app">
+<header class="top"><div class="logo">M</div><div><div class="brand">Mechanic AI</div><div class="sub">مساعد تشخيص أعطال الدراجات النارية</div></div><div class="pill">نسخة مطوّرة</div></header>
+<section id="home">
+<div class="hero"><div class="eyebrow">فحص منظّم خطوة بخطوة</div><h1>خلّينا نحدد سبب العطل بأمان.</h1><p>أجب عن الأسئلة كما تلاحظها، وسنقترح أسبابًا محتملة وخطوة الفحص التالية. النتيجة إرشادية وليست بديلًا عن دليل الصيانة.</p><div class="actions two"><button class="btn primary" onclick="startDiagnosis()">＋ تشخيص جديد</button><button class="btn secondary" onclick="showPage('safety')">إرشادات السلامة</button></div></div>
+<h2 class="section-title">اختر نظام الفحص</h2>
+<div class="tiles">
+<div class="tile" role="button" tabindex="0" onclick="startDiagnosis('fuel')"><div class="emoji">⛽</div><b>الوقود</b><small>تسريب، كربريتر، صعوبة تشغيل</small></div>
+<div class="tile" role="button" tabindex="0" onclick="startDiagnosis('electrical')"><div class="emoji">⚡</div><b>الكهرباء</b><small>بطارية، شرارة، توصيلات</small></div>
+<div class="tile" role="button" tabindex="0" onclick="startDiagnosis('engine')"><div class="emoji">⚙️</div><b>المحرك</b><small>قوة، زيت، صوت، دخان</small></div>
+<div class="tile" role="button" tabindex="0" onclick="startDiagnosis('brakes')"><div class="emoji">🛞</div><b>الفرامل</b><small>ضعف فرملة، اهتزاز، تعليق</small></div>
+</div>
+<section class="card"><b>سجل التشخيصات</b><p class="muted">تُحفظ النتائج على هذا الجهاز فقط عند توفر التخزين المحلي.</p><div id="history"></div><div class="actions two"><button class="btn secondary" onclick="exportHistory()">تصدير السجل</button><button class="btn secondary" onclick="clearHistory()">مسح السجل</button></div></section>
+<section class="card"><b>مساعد الذكاء الاصطناعي</b><p class="muted">يمكن تجهيز اتصال آمن بخادم ذكاء اصطناعي. لا تضع مفتاح API في هذا الملف أو في تطبيق الهاتف؛ يجب حفظه في الخادم.</p><label for="aiEndpoint" class="small">عنوان خادمك (اختياري بعد إعداد الخادم)</label><input id="aiEndpoint" class="field" placeholder="https://your-server.example/api/diagnose"><button class="btn secondary" style="margin-top:10px;width:100%" onclick="saveEndpoint()">حفظ عنوان الخادم</button><div id="aiStatus" class="small" style="margin-top:8px"></div></section>
+</section>
+<section id="diag" class="card hidden"><div class="eyebrow" id="systemLabel"></div><div id="stepLabel" class="sub"></div><div class="progress"><span id="bar"></span></div><div id="q" class="question"></div><div id="choices" class="choices"></div><div id="resultBox" class="hidden"></div><div class="actions two"><button id="backBtn" class="btn secondary" onclick="backStep()">السؤال السابق</button><button class="btn secondary" onclick="goHome()">الرئيسية</button></div></section>
+<section id="safety" class="card hidden"><h2>إرشادات السلامة</h2><div class="warning critical"><b>إذا كان هناك تسرب بنزين:</b> أوقف المحرك، لا تشغله، أبعد اللهب والشرر، وأغلق صنبور الوقود إن أمكن دون تعريض نفسك للخطر. اعمل في مكان جيد التهوية.</div><div class="warning critical"><b>إذا كانت الفرامل ضعيفة أو العجلة عالقة:</b> لا تقد الدراجة قبل فحصها وإصلاحها.</div><p class="muted">لا تفك أجزاء ساخنة أو مضغوطة. لا تختبر الشرارة قرب البنزين. عند الشك أو وجود صوت طرق معدني قوي، أوقف التشغيل واستعن بميكانيكي مؤهل.</p><button class="btn secondary" onclick="goHome()">العودة للرئيسية</button></section>
+<div class="footer">Mechanic AI v3 · تشخيص إرشادي محلي · راجع دليل صيانة طرازك</div>
+</main>
+<script>
+const SYSTEMS={
+fuel:{name:'نظام الوقود',steps:[
+{id:'where',q:'أين يظهر تسريب البنزين أو ما المشكلة الأساسية؟',a:[['overflow','من خرطوم فائض الكربريتر'],['line','من خرطوم أو وصلة الوقود'],['bowl','من حوض الكربريتر أو الحشية'],['start','صعوبة تشغيل دون تسريب ظاهر'],['unknown','لست متأكدًا']]},
+{id:'when',q:'متى يحدث التسريب؟',a:[['off','والمحرك مطفأ'],['running','والمحرك يعمل فقط'],['both','في الحالتين'],['na','لم أتحقق']]},
+{id:'tap',q:'إذا أغلقت صنبور الوقود بأمان، ماذا يحدث؟',a:[['stops','يتوقف بعد قليل'],['fast','يتوقف فورًا'],['continues','يستمر دون تغيير'],['na','لم أجرّب ذلك']]},
+{id:'needle',q:'ما حالة إبرة العوامة ومقعدها بعد الفحص؟',a:[['worn','طرف الإبرة متآكل أو لا يغلق'],['dirty','توجد أوساخ أو شوائب'],['good','تبدو سليمة'],['float','العوامة عالقة أو تالفة'],['na','لم أفحصها']]}
+]},
+electrical:{name:'الكهرباء والإشعال',steps:[
+{id:'start',q:'عند الضغط على زر التشغيل، ماذا يحدث؟',a:[['nothing','لا يحدث شيء'],['click','صوت طقطقة'],['crank','يدور المحرك ولا يشتغل'],['starts','يشتغل ثم ينطفئ']]},
+{id:'lights',q:'هل المصابيح والبوق يعملان بقوة طبيعية؟',a:[['normal','نعم'],['weak','ضعيفان أو لا يعملان'],['intermittent','يعملان بشكل متقطع'],['na','لم أتحقق']]},
+{id:'terminals',q:'هل أقطاب البطارية والأسلاك مثبتة ونظيفة؟',a:[['yes','نعم'],['corroded','ارتخاء أو تآكل ظاهر'],['na','لم أفحصها']]},
+{id:'plug',q:'هل فُحصت شمعة الإشعال؟',a:[['wet','مبللة أو متسخة'],['good','تبدو سليمة'],['na','لم أفحصها']]}
+]},
+engine:{name:'المحرك',steps:[
+{id:'symptom',q:'ما العرض الأساسي للمحرك؟',a:[['nostart','لا يشتغل'],['weak','ضعف في القوة'],['noise','صوت غير طبيعي'],['smoke','دخان غير طبيعي']]},
+{id:'oil',q:'هل مستوى زيت المحرك صحيح حسب طريقة القياس في الدليل؟',a:[['ok','نعم'],['low','منخفض'],['high','مرتفع أو غير واضح'],['na','لم أفحصه']]},
+{id:'timing',q:'متى يظهر العرض؟',a:[['cold','عند التشغيل البارد'],['hot','بعد أن يسخن'],['accel','عند التسارع'],['always','طوال الوقت']]},
+{id:'danger',q:'هل يوجد صوت طرق معدني قوي أو تسريب زيت واضح؟',a:[['knock','صوت طرق معدني قوي'],['leak','تسريب زيت'],['no','لا'],['na','لست متأكدًا']]}
+]},
+brakes:{name:'الفرامل والعجلات',steps:[
+{id:'symptom',q:'ما المشكلة التي تلاحظها؟',a:[['weak','ضعف الفرملة'],['rub','صوت احتكاك'],['vibrate','اهتزاز عند الفرملة'],['stuck','تعليق العجلة']]},
+{id:'lever',q:'هل ذراع أو دواسة الفرامل إسفنجية أو تغوص كثيرًا؟',a:[['yes','نعم'],['no','لا'],['na','غير متأكد']]},
+{id:'leak',q:'هل يوجد تسريب سائل فرامل أو تلف واضح؟',a:[['yes','نعم'],['no','لا'],['na','لم أفحص']]},
+{id:'heat',q:'هل العجلة أو الفرامل ساخنة جدًا أو عالقة؟',a:[['yes','نعم'],['no','لا'],['na','غير متأكد']]}
+]}
+};
+let system='fuel',idx=0,answers={},lastResult=null;
+const $=id=>document.getElementById(id);
+function showPage(id){['home','diag','safety'].forEach(x=>$(x).classList.toggle('hidden',x!==id));}
+function goHome(){showPage('home');renderHistory();}
+function startDiagnosis(which){system=which||'fuel';idx=0;answers={};lastResult=null;showPage('diag');renderStep();}
+function renderStep(){const cfg=SYSTEMS[system],step=cfg.steps[idx];$('systemLabel').textContent='تشخيص '+cfg.name;$('stepLabel').textContent=`السؤال ${idx+1} من ${cfg.steps.length}`;$('bar').style.width=((idx+1)/cfg.steps.length*100)+'%';$('q').textContent=step.q;$('q').classList.remove('hidden');$('choices').classList.remove('hidden');$('resultBox').classList.add('hidden');$('backBtn').style.visibility=idx===0?'hidden':'visible';const c=$('choices');c.innerHTML='';step.a.forEach(([value,label])=>{const b=document.createElement('button');b.className='choice';b.textContent=(answers[step.id]===value?'✓ ':'')+label;b.onclick=()=>choose(step.id,value);c.appendChild(b);});}
+function choose(id,value){answers[id]=value;if(idx<SYSTEMS[system].steps.length-1){idx++;renderStep();}else showResult();}
+function backStep(){if(idx>0){idx--;renderStep();}}
+function resultFor(){const a=answers;let title='المعلومات الحالية لا تكفي لتحديد سبب واحد';let detail='أعد فحص الأعراض، ثم اتبع دليل الصيانة الخاص بطراز الدراجة قبل تبديل القطع.';let next='ابدأ بالفحص البصري الآمن وسجّل أي تغيّر في الأعراض.';let risk='normal';
+if(system==='fuel'){
+ if(a.where==='line'){title='احتمال تسرب من خرطوم أو وصلة الوقود';detail='افحص الخرطوم والوصلات والمشابك بحثًا عن تشقق أو ارتخاء، واستبدل الأجزاء التالفة بمواصفات مطابقة.';next='لا تشغّل المحرك حتى إصلاح التسريب والتأكد من الجفاف.';risk='critical';}
+ else if(a.where==='bowl'){title='احتمال تسرب من حوض الكربريتر أو الحشية';detail='تحقق من تثبيت الحوض وحالة الحشية وسطح التلامس. لا تفرط في شد البراغي.';next='أغلق الوقود واعمل والمحرك بارد وفي مكان جيد التهوية.';risk='critical';}
+ else if(a.where==='overflow'||a.needle==='worn'||a.needle==='dirty'||a.needle==='float'){title='اشتباه في عدم إغلاق إبرة العوامة أو ارتفاع مستوى الوقود';detail=(a.needle==='worn'?'التآكل قد يمنع الإبرة من إحكام الإغلاق. ':a.needle==='dirty'?'قد تمنع الشوائب الإبرة من الإغلاق. ':a.needle==='float'?'قد تؤدي العوامة العالقة أو التالفة إلى ارتفاع مستوى الوقود. ':'تسرب الفائض غالبًا يستدعي فحص العوامة وإبرة الإغلاق ومقعدها. ')+'افحص حركة العوامة ومقعد الإبرة وفق دليل الكربريتر.';next='نظّف أو استبدل القطعة المتضررة بعد تأكيد العطل، ثم اختبر الإحكام دون تشغيل المحرك أولًا.';risk='critical';}
+ else if(a.when==='off'||a.when==='both'){title='التسريب يحدث حتى والمحرك مطفأ';detail='قد يكون السبب في صنبور الوقود أو الخرطوم أو صمام العوامة. لا يمكن الجزم من الإجابات وحدها.';next='أغلق صنبور الوقود بأمان، وحدد مصدر البلل قبل فك أي جزء.';risk='critical';}
+ else if(a.where==='start'){title='صعوبة التشغيل تحتاج فحص الوقود والشرارة والهواء';detail='لا تبدّل القطع عشوائيًا. ابدأ بمستوى الوقود وتدفقه، ثم افحص فلتر الهواء وشمعة الإشعال حسب الدليل.';next='إذا كانت شمعة الإشعال مبللة بالوقود، تجنب الشرر واللهب واتبع إجراءات الدليل.';}
+}
+if(system==='electrical'){
+ if(a.start==='nothing'||a.lights==='weak'){title='ابدأ بفحص البطارية والتوصيلات والفيوزات';detail='قد تكون البطارية منخفضة الشحن أو توجد وصلة مرتخية أو فيوز تالف. افحص الأقطاب بصريًا قبل استبدال القطع.';next='لا تقصر أطراف البطارية بأداة معدنية، واتبع دليل الطراز.';}
+ else if(a.start==='click'){title='اشتباه في بطارية ضعيفة أو توصيل عالي المقاومة';detail='صوت الطقطقة قد ينتج عن انخفاض الجهد أو توصيل غير جيد أو دائرة بادئ التشغيل.';next='افحص شحن البطارية وثبات الأقطاب؛ اطلب قياس الجهد تحت الحمل عند الحاجة.';}
+ else if(a.start==='crank'){title='المحرك يدور لكنه لا يشتغل';detail='الأسباب المحتملة تشمل الوقود أو الشرارة أو دخول الهواء أو الضغط. الإجابات الحالية لا تعزل سببًا واحدًا.';next='افحص الوقود وفلتر الهواء وشمعة الإشعال وفق دليل الصيانة. لا تختبر الشرارة قرب أي تسرب بنزين.';}
+ else {title='المحرك يشتغل ثم ينطفئ';detail='قد يكون السبب في تدفق الوقود أو دائرة الإشعال أو سرعة الخمول.';next='لاحظ هل يحدث ذلك عند فتح الخانق أم عند الخمول، ثم افحص مسار الوقود والهواء.';}
+ if(a.terminals==='corroded')next='ابدأ بتنظيف وتثبيت التوصيلات بالطريقة الصحيحة بعد فصل الدائرة حسب دليل الطراز.';
+}
+if(system==='engine'){
+ if(a.danger==='knock'){title='توقف عن تشغيل المحرك';detail='الطرق المعدني القوي قد يشير إلى عطل داخلي أو مشكلة تزييت. لا يمكن تأكيد السبب عن بُعد.';next='افحص مستوى الزيت والمحرك متوقف، واطلب فحصًا من ميكانيكي مؤهل.';risk='critical';}
+ else if(a.oil==='low'){title='مستوى الزيت منخفض';detail='نقص الزيت قد يسبب تلفًا خطيرًا. تحقق من القياس على أرض مستوية وبالطريقة المحددة في الدليل، وافحص التسرب.';next='لا تشغّل المحرك إذا كان الزيت دون الحد الأدنى أو يوجد صوت طرق.';risk='critical';}
+ else if(a.danger==='leak'){title='يوجد تسريب زيت يحتاج تحديد المصدر';detail='نظف المنطقة بعد برودة المحرك وحدد مصدر التسرب بصريًا، ولا تلمس الأجزاء الساخنة.';next='تحقق من مستوى الزيت قبل التشغيل، واصلح التسريب قبل الاستخدام.';risk='high';}
+ else if(a.symptom==='noise'){title='الصوت غير الطبيعي يحتاج تحديدًا إضافيًا';detail='نوع الصوت وتوقيت ظهوره مهمان؛ الطقطقة الخفيفة والطرق المعدني القوي ليسا الشيء نفسه.';next='إذا كان الصوت قويًا أو جديدًا، أوقف المحرك واطلب فحصًا مؤهلًا.';risk='high';}
+ else {title='يلزم تضييق سبب أداء المحرك';detail='قد ترتبط الأعراض بالوقود أو الهواء أو الإشعال أو الضغط أو الصيانة. لا تكفي هذه الإجابات لتأكيد عطل محدد.';next='افحص الزيت والتسريبات وفلتر الهواء وشمعة الإشعال وفق دليل الطراز.';}
+}
+if(system==='brakes'){
+ if(a.symptom==='stuck'||a.lever==='yes'||a.heat==='yes'||a.leak==='yes'){title='لا تقد الدراجة قبل فحص الفرامل';detail='قد تشير هذه الأعراض إلى خلل في الفرامل أو تعليق العجلة. يلزم فحص مباشر قبل الاستخدام.';next='أوقف الاستخدام وانقل الدراجة للفحص؛ لا تعتمد عليها حتى إصلاح الخلل.';risk='critical';}
+ else if(a.symptom==='weak'){title='ضعف الفرملة خطر يستلزم الفحص قبل القيادة';detail='قد يكون السبب تآكل الفحمات أو مشكلة في السائل أو الكابل أو سطح الفرملة، بحسب نوع النظام.';next='افحص مستوى السائل أو شد الكابل والفحمات وفق دليل الطراز، ولا تقدها حتى التأكد من سلامتها.';risk='critical';}
+ else {title='افحص أجزاء الفرامل والعجلة بصريًا';detail='الاحتكاك أو الاهتزاز قد ينتج عن تآكل أو اعوجاج أو ارتخاء. لا يمكن تحديد السبب من الأعراض وحدها.';next='لا تلمس القرص أو الطنبورة وهي ساخنة، واطلب فحصًا إذا استمر الصوت أو الاهتزاز.';risk='high';}
+}
+return {title,detail,next,risk};
+}
+function showResult(){const cfg=SYSTEMS[system],r=resultFor();const answered=cfg.steps.filter(s=>answers[s.id] && !['na','unknown'].includes(answers[s.id])).length;const confidence=Math.max(25,Math.min(85,Math.round(35+(answered/cfg.steps.length)*40+(r.risk==='critical'?5:0))));lastResult={id:Date.now(),system:cfg.name,title:r.title,detail:r.detail,next:r.next,risk:r.risk,confidence:confidence+'%',answers:cfg.steps.map(s=>({q:s.q,a:s.a.find(x=>x[0]===answers[s.id])?.[1]||'—'})),date:new Date().toLocaleString('ar')};$('stepLabel').textContent='ملخص التشخيص الأولي';$('bar').style.width='100%';$('q').classList.add('hidden');$('choices').classList.add('hidden');$('backBtn').style.visibility='hidden';const box=$('resultBox');box.classList.remove('hidden');box.innerHTML=`<div class="result"><b>${esc(r.title)}</b><br><span class="small">درجة الثقة الإرشادية: ${confidence}% — تقدير أولي وليس احتمالًا علميًا</span><br>${esc(r.detail)}<p><b>الخطوة التالية:</b> ${esc(r.next)}</p></div>${r.risk!=='normal'?`<div class="warning ${r.risk==='critical'?'critical':''}"><b>تنبيه سلامة:</b> لا تستخدم الدراجة حتى معالجة الخطر المذكور.</div>`:''}<p class="note"><b>إجاباتك:</b><br>${lastResult.answers.map((x,i)=>`${i+1}. ${esc(x.q)}<br>↳ ${esc(x.a)}`).join('<br>')}<br><br>هذه نتيجة احتمالية مبنية على قواعد محلية. درجة الثقة تقديرية وليست احتمالًا علميًا أو تشخيصًا مؤكدًا. يلزم خادم منفصل لتفعيل الذكاء الاصطناعي التوليدي.</p><div class="actions"><button class="btn primary" onclick="saveResult()">حفظ النتيجة في السجل</button><button class="btn secondary" onclick="askAI()">طلب شرح من خادم الذكاء الاصطناعي</button><button class="btn secondary" onclick="startDiagnosis('${system}')">إعادة الفحص</button></div><div id="aiReply" class="note"></div>`;}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function getHistory(){try{return JSON.parse(localStorage.getItem('mechanicAIHistory')||'[]')}catch(e){return []}}
+function saveResult(){if(!lastResult)return;let h=getHistory();h.unshift(lastResult);localStorage.setItem('mechanicAIHistory',JSON.stringify(h.slice(0,50)));$('resultBox').insertAdjacentHTML('beforeend','<p class="small">تم حفظ النتيجة على هذا الجهاز.</p>');}
+function renderHistory(){let h=getHistory();$('history').innerHTML=h.length?h.slice(0,8).map(x=>`<div class="history-item"><b>${esc(x.system)}: ${esc(x.title)}</b><br><span class="small">${esc(x.date||'')}</span><br>${esc(x.next||'')}</div>`).join(''):'<p class="small">لا توجد نتائج محفوظة حتى الآن.</p>';}
+function clearHistory(){if(confirm('هل تريد مسح سجل التشخيصات المحفوظ على هذا الجهاز؟')){localStorage.removeItem('mechanicAIHistory');renderHistory();}}
+function exportHistory(){const blob=new Blob([JSON.stringify(getHistory(),null,2)],{type:'application/json;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='mechanic-ai-history.json';a.click();URL.revokeObjectURL(url);}
+function saveEndpoint(){const v=$('aiEndpoint').value.trim();localStorage.setItem('mechanicAIEndpoint',v);$('aiStatus').textContent=v?'تم حفظ العنوان على هذا الجهاز. تأكد أن الخادم موثوق ويستخدم HTTPS.':'لم يتم إدخال عنوان.';}
+async function askAI(){const endpoint=localStorage.getItem('mechanicAIEndpoint')||$('aiEndpoint').value.trim();const target=$('aiReply');if(!endpoint){target.textContent='لم يتم إعداد خادم ذكاء اصطناعي بعد. يلزم نشر الخادم الموجود في مجلد server أولًا ثم إدخال عنوانه هنا.';return;}if(!lastResult){target.textContent='أكمل التشخيص أولًا.';return;}target.textContent='جارٍ الاتصال بالخادم…';try{const res=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:lastResult.system,title:lastResult.title,detail:lastResult.detail,next:lastResult.next,answers:lastResult.answers})});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();target.textContent=data.answer||'لم يرجع الخادم إجابة مفهومة.';}catch(e){target.textContent='تعذر الاتصال بالخادم. تحقق من عنوان HTTPS وإعدادات الخادم والإنترنت. التشخيص المحلي ما زال يعمل.';}}
+if(localStorage.getItem('mechanicAIEndpoint'))$('aiEndpoint').value=localStorage.getItem('mechanicAIEndpoint');
+renderHistory();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script></body></html>
