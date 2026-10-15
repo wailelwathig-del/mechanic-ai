@@ -1,4 +1,4 @@
-const CACHE = 'mechanic-ai-v3-pwa-1';
+.const CACHE = 'mechanic-ai-v3-pwa-1';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
