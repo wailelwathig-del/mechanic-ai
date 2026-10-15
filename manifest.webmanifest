@@ -1,0 +1,22 @@
+{
+  "id": "./",
+  "name": "Mechanic AI",
+  "short_name": "Mechanic AI",
+  "description": "مساعد تشخيص أعطال الدراجات النارية",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./Mechanic_AI_v3.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
